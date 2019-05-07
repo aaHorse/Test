@@ -1,6 +1,9 @@
 package main.project_1;
 
+import main.project_1.inter.Back;
+
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -118,20 +121,6 @@ public class DBUtils {
                     +"\'"+reader.getBook().getPublishing_name()+"\'"
                     +");";
             System.out.println(sql);
-/*            String sql = "insert into "+mytable_2
-                    +"(num,name,xueyuan,major,grade,date,book_name,book_author,publishing_name)"
-                    +"values"
-                    +"("
-                    +"\'"+reader.getNum()+"\'"+","
-                    +reader.getName()+"\'"+","
-                    +reader.getXueyuan()+"\'"+","
-                    +reader.getMajor()+"\'"+","
-                    +"1"+","
-                    +"123"+","
-                    +"123"+","
-                    +"234"+","
-                    +"你好"
-                    +")";*/
             pstmt = conn.prepareStatement(sql);
             pstmt.executeUpdate();
         } catch (Exception e) {
@@ -144,31 +133,49 @@ public class DBUtils {
 
 
     /*
-    * 查询全部
+    * 查询读者的借阅信息
     * */
-    public static void func_2(){
+    public static void func_2(String num, Back back){
         Connection conn = null;
         PreparedStatement pstmt = null;
         /*
         * ResultSet,结果集，对应数据库的存储形式，二维的数组？？？！！！
         * */
         ResultSet rs = null;
+        List<System_m.Reader>lists=new ArrayList<>();
         try {
             conn = getConnection();
-            String sql = "select * from "+mytable_2;
+            String sql = "select num,name,xueyuan,major,grade,date,book_name,book_author,publishing_name" +
+                    " from "+mytable_2+" " +
+                    "where num="+"\'"+num+"\'"+";";
+            System.out.println(sql);
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
             while (rs.next()) {
-               //
-                System.out.println(rs.getInt(1)+rs.getString(2));
-                System.out.println(rs.getInt("user_id"));
+                System_m.Reader reader=new System_m.Reader();
+                System.out.println(rs.toString()+"");
+                reader.setNum(rs.getString(1));
+                reader.setName(rs.getString(2));
+                reader.setXueyuan(rs.getString(3));
+                reader.setMajor(rs.getString(4));
+                reader.setGrade(rs.getString(5));
+                reader.setDate(rs.getString(6));
+                System_m.Book book=new System_m.Book();
+                book.setBook_name(rs.getString(7));
+                book.setBook_author(rs.getString(8));
+                book.setPublishing_name(rs.getString(9));
+                reader.setBook(book);
+                lists.add(reader);
             }
+            back.success(lists);
         } catch (Exception e) {
+            back.error();
             e.printStackTrace();
         } finally {
             // 7.释放资源
             release(conn, pstmt, rs);
         }
     }
+
 }
 

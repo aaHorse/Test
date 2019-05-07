@@ -1,5 +1,9 @@
 package main.project_1;
 
+import main.project_1.inter.Back;
+import main.project_1.ui.Search_All;
+
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -30,11 +34,36 @@ public class System_p {
         }).start();
     }
 
-    public static void main(String[]args){
+    /*
+    * 查询读者的借阅信息
+    * */
+    public static void func_2(String num){
         new Thread(new Runnable() {
             @Override
             public void run() {
-                DBUtils.func_2();
+                DBUtils.func_2(num, new Back() {
+                    @Override
+                    public void success(List<System_m.Reader>lists) {
+                        try{
+                            EventQueue.invokeLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    /*
+                                     * 回调ui线程，更新界面
+                                     * */
+                                    Search_All.update(lists);
+                                }
+                            });
+                        }catch (InternalError e){
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void error() {
+                        System.out.println("查询读者借阅信息出错啦");
+                    }
+                });
             }
         }).start();
     }

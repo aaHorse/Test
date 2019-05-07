@@ -94,8 +94,8 @@ class JF_Reader extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equals("确定")){
-            Borrow.reader.setNum(jTextField_1.getText());
-            Borrow.reader.setName(jTextField_2.getText());
+            Borrow.reader.setNum(jTextField_2.getText());
+            Borrow.reader.setName(jTextField_1.getText());
             Borrow.reader.setXueyuan(jTextField_3.getText());
             Borrow.reader.setMajor(jTextField_4.getText());
             Borrow.reader.setGrade(jTextField_5.getText());
@@ -133,11 +133,11 @@ class JTable extends JFrame implements ActionListener{
                     System_m.Book book=new System_m.Book();
                     String name=table.getValueAt(i,0).toString();
                     String author=table.getValueAt(i,1).toString();
-                    String time=table.getValueAt(i,2).toString();
+                    String publishing_name=table.getValueAt(i,2).toString();
+
                     book.setBook_name(name);
-                    System.out.println(name);
                     book.setBook_author(author);
-                    book.setPublishing_name(time);
+                    book.setPublishing_name(publishing_name);
 
                     System_m.Reader reader=new System_m.Reader();
                     reader.setNum(Borrow.reader.getNum());
@@ -192,40 +192,10 @@ class JTable extends JFrame implements ActionListener{
         Object[][] data = new Object[2][4];
         public MyTableModel() {
             for (int i = 0; i < 2; i++) {
-                for (int j = 0; j < 5; j++) {
-                    if (0 == i) {
-                        switch (j) {
-                            case 0:
-                                data[i][j] = "邓光侨";
-                                break;
-                            case 1:
-                                data[i][j] = "2008415";
-                                break;
-                            case 2:
-                                data[i][j] = "18";
-                                break;
-                            case 3:
-                                data[i][j] = new Boolean(false);
-                                break;
-                        }
-                    }
-                    if (1 == i) {
-                        switch (j) {
-                            case 0:
-                                data[i][j] = "李洁璇";
-                                break;
-                            case 1:
-                                data[i][j] = "2008321";
-                                break;
-                            case 2:
-                                data[i][j] = "18";
-                                break;
-                            case 3:
-                                data[i][j] = new Boolean(false);
-                                break;
-                        }
-                    }
-                }
+                data[i][0]="书1";
+                data[i][1]="作者1";
+                data[i][2]="出版社1";
+                data[i][3]=new Boolean(false);
             }
         }
 
