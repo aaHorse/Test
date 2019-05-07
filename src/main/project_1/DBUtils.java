@@ -177,5 +177,26 @@ public class DBUtils {
         }
     }
 
+    /*
+    * 读者归还课本后，对信息进行删除
+    * */
+    public static void func_3(System_m.Reader reader){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        try {
+            conn = getConnection();
+            String sql="delete from "+mytable_2+" where num = "+"\'"+reader.getNum()+"\'"
+                    +"and date = "+"\'"+reader.getDate()+"\'"+";";
+            System.out.println(sql);
+            pstmt = conn.prepareStatement(sql);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // 7.释放资源
+            release(conn, pstmt);
+        }
+    }
+
 }
 

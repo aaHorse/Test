@@ -42,10 +42,6 @@ public class Menu extends JFrame implements ActionListener {
         container.setLayout(new FlowLayout(FlowLayout.CENTER));
         container.setBackground(Color.LIGHT_GRAY);
         this.setTitle("上机作业");
-        this.setBounds(600, 150, 500, 150);
-        this.setVisible(true);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null);
     }
 
     public void setting_menu(){

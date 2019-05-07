@@ -55,7 +55,7 @@ class JF_Reader extends JFrame implements ActionListener{
         super("读者信息");
         this.setBounds(600, 150, 500, 500);
         this.setVisible(true);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         Container bg_container=getContentPane();
         bg_container.setLayout(new FlowLayout(FlowLayout.CENTER));
 
@@ -121,6 +121,9 @@ class JTable extends JFrame implements ActionListener{
 
     public JTable(){
         super("借书");
+        this.setBounds(600, 150, 500, 500);
+        this.setVisible(true);
+        //this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         intiComponent();
     }
 
@@ -166,15 +169,11 @@ class JTable extends JFrame implements ActionListener{
 
     public void intiComponent() {
         container=getContentPane();
-        container.setLayout(new FlowLayout(FlowLayout.LEFT));
+        container.setLayout(new BoxLayout(container,BoxLayout.X_AXIS));
         add_button();
         table= new javax.swing.JTable(new MyTableModel());
         JScrollPane scroll = new JScrollPane(table);
-
-        this.add(scroll);
-        this.setVisible(true);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.pack();
+        container.add(scroll);
     }
 
     private void add_button(){
@@ -189,12 +188,12 @@ class JTable extends JFrame implements ActionListener{
     private class MyTableModel extends AbstractTableModel {
         String[] columnNames =
                 {"书名", "作者", "出版社", "我要借阅"};
-        Object[][] data = new Object[2][4];
+        Object[][] data = new Object[100][4];
         public MyTableModel() {
-            for (int i = 0; i < 2; i++) {
-                data[i][0]="书1";
-                data[i][1]="作者1";
-                data[i][2]="出版社1";
+            for (int i = 0; i < 100; i++) {
+                data[i][0]="书"+i;
+                data[i][1]="作者"+i;
+                data[i][2]="出版社"+i;
                 data[i][3]=new Boolean(false);
             }
         }

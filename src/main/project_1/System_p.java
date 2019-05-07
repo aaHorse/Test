@@ -1,6 +1,7 @@
 package main.project_1;
 
 import main.project_1.inter.Back;
+import main.project_1.ui.Return;
 import main.project_1.ui.Search_All;
 
 import java.awt.*;
@@ -37,7 +38,7 @@ public class System_p {
     /*
     * 查询读者的借阅信息
     * */
-    public static void func_2(String num){
+    public static void func_2(String num,String flag){
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -51,7 +52,14 @@ public class System_p {
                                     /*
                                      * 回调ui线程，更新界面
                                      * */
-                                    Search_All.update(lists);
+                                    if(flag.equals("Search_All")){
+                                        Search_All.update(lists);
+                                    }else if(flag.equals("Return")){
+                                        Return.update(lists);
+                                    }else {
+                                        System.out.println("System_p出错啦");
+                                    }
+
                                 }
                             });
                         }catch (InternalError e){
@@ -64,6 +72,20 @@ public class System_p {
                         System.out.println("查询读者借阅信息出错啦");
                     }
                 });
+            }
+        }).start();
+    }
+
+    /*
+    * 归还图书
+    * */
+    public static void func_3(List<System_m.Reader>lists){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for(int i=0;i<lists.size();i++){
+                    DBUtils.func_3(lists.get(i));
+                }
             }
         }).start();
     }

@@ -33,7 +33,7 @@ public class Search_All extends JFrame implements ActionListener {
         super("读者借阅信息");
         this.setBounds(600, 150, 500, 500);
         this.setVisible(true);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         bg_container = getContentPane();
         bg_container.setLayout(new FlowLayout(FlowLayout.CENTER));
         Container container = new Container();
@@ -54,7 +54,7 @@ public class Search_All extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("确定")) {
-            System_p.func_2(jTextField_2.getText());
+            System_p.func_2(jTextField_2.getText(),"Search_All");
         }
     }
 
@@ -80,8 +80,6 @@ class JTable_2 extends JFrame{
         super("借阅信息");
         this.setBounds(600, 150, 500, 500);
         this.setVisible(true);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         this.reader_lists=mylists;
         System.out.println("长度为"+lists.size());
         intiComponent();
