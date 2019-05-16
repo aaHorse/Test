@@ -53,8 +53,8 @@ class JF_Reader extends JFrame implements ActionListener{
 
     public JF_Reader(){
         super("读者信息");
-        this.setBounds(600, 150, 500, 500);
         this.setVisible(true);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         //this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         Container bg_container=getContentPane();
         bg_container.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -121,7 +121,7 @@ class JTable extends JFrame implements ActionListener{
 
     public JTable(){
         super("借书");
-        this.setBounds(600, 150, 500, 500);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setVisible(true);
         //this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         intiComponent();

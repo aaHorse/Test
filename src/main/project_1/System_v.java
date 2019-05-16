@@ -24,37 +24,30 @@ import java.awt.event.ActionListener;
  * <p>Copyright: Copyright (c) 2019</p>
  */
 public class System_v extends JFrame implements ActionListener {
-    private Container container;
     public System_v(){
-        setting();
-        setting_System_v();
-    }
-
-    private void setting(){
-        container=getContentPane();
-        container.setLayout(new FlowLayout(FlowLayout.CENTER));
-        container.setBackground(Color.LIGHT_GRAY);
-        this.setTitle("图书馆系统");
-        this.setBounds(600, 150, 500, 150);
+        super("图书馆系统");
+        this.setBackground(Color.LIGHT_GRAY);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setVisible(true);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
-    }
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    private void setting_System_v(){
-        Container container_2=new Container();
-        container_2.setLayout(new FlowLayout(FlowLayout.CENTER));
+        JPanel jPanel=new JPanel();
         JButton jButton_1=new JButton("借书");
         JButton jButton_2=new JButton("还书");
         JButton jButton_3=new JButton("查看所有图书馆借出去的书");
-        container_2.add(jButton_1);
-        container_2.add(jButton_2);
-        container_2.add(jButton_3);
+        jPanel.add(jButton_1);
+        jPanel.add(jButton_2);
+        jPanel.add(jButton_3);
         jButton_1.addActionListener(this);
         jButton_2.addActionListener(this);
         jButton_3.addActionListener(this);
-        container.add(container_2);
+
+        jButton_1.setLocation(200,200);
+        jPanel.setLocation(500,500);
+        this.setContentPane(jPanel);
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {

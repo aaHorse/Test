@@ -31,7 +31,7 @@ public class Search_All extends JFrame implements ActionListener {
 
     public Search_All() {
         super("读者借阅信息");
-        this.setBounds(600, 150, 500, 500);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setVisible(true);
         //this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         bg_container = getContentPane();
@@ -78,7 +78,7 @@ class JTable_2 extends JFrame{
 
     public JTable_2(List<System_m.Reader> mylists){
         super("借阅信息");
-        this.setBounds(600, 150, 500, 500);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setVisible(true);
         this.reader_lists=mylists;
         System.out.println("长度为"+lists.size());

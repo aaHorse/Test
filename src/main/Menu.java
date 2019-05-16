@@ -1,11 +1,14 @@
 package main;
 
 import main.project_1.System_v;
+import main.project_2.server.System_v_server;
 
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Enumeration;
 
 /**
  * java类简单作用描述
@@ -23,32 +26,24 @@ public class Menu extends JFrame implements ActionListener {
     private static Container container;
 
     public static void main(String[] args){
-        Menu menu = new Menu();
-
-        menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        menu.setBounds(((Toolkit.getDefaultToolkit().getScreenSize().width)/2)-300,
-                ((Toolkit.getDefaultToolkit().getScreenSize().height)/2)-300,600,600);
-        menu.setVisible(true);
+        InitGlobalFont(new Font("alias", Font.PLAIN,20));
+        new Menu();
     }
 
     public Menu(){
-        setting();
-        setting_menu();
-        setting_content();
-    }
+        super("上机作业");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-    private void setting(){
         container=getContentPane();
         container.setLayout(new FlowLayout(FlowLayout.CENTER));
         container.setBackground(Color.LIGHT_GRAY);
-        this.setTitle("上机作业");
-    }
 
-    public void setting_menu(){
         //创建菜单
         JMenuBar jmb = new JMenuBar();
         //不能设定位置，会自动放在最上部
         this.setJMenuBar(jmb);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         //添加菜单
         JMenu menu1 = new JMenu("项目");
         JMenu menu2 = new JMenu("关于");
@@ -65,15 +60,18 @@ public class Menu extends JFrame implements ActionListener {
         item1.addActionListener(this);
         item2.addActionListener(this);
         item3.addActionListener(this);
+
+        JTextArea textArea=new JTextArea();
+        textArea.setText("\n\n\n欢  迎  使  用  !");
+        textArea.setBackground(Color.LIGHT_GRAY);
+        textArea.setEnabled(false);
+        textArea.setDisabledTextColor(Color.RED);
+        textArea.setFont(new Font("宋体", Font.PLAIN, 50));
+        container.add(textArea);
+
+        this.setVisible(true);
     }
 
-    private void setting_content(){
-        JTextArea textArea=new JTextArea();
-        textArea.setText("欢迎使用");
-        textArea.setBackground(Color.LIGHT_GRAY);
-        textArea.setFont(new Font("宋体", Font.PLAIN, 30));
-        container.add(textArea);
-    }
 
     @Override
     public void actionPerformed(ActionEvent e){
@@ -83,8 +81,26 @@ public class Menu extends JFrame implements ActionListener {
             new System_v();
         }
         else if("在线聊天".equals(str)){
+            new System_v_server();
         }
         else if("关于开发者".equals(str)){
+        }
+    }
+
+
+
+    /**
+     * 统一设置字体，父界面设置之后，所有由父界面进入的子界面都不需要再次设置字体
+     */
+    private static void InitGlobalFont(Font font) {
+        FontUIResource fontRes = new FontUIResource(font);
+        for (Enumeration<Object> keys = UIManager.getDefaults().keys();
+             keys.hasMoreElements(); ) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get(key);
+            if (value instanceof FontUIResource) {
+                UIManager.put(key, fontRes);
+            }
         }
     }
 }

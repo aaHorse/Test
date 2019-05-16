@@ -29,7 +29,7 @@ public class Return extends JFrame implements ActionListener {
 
     public Return() {
         super("读者借阅信息");
-        this.setBounds(600, 150, 500, 500);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setVisible(true);
         //this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         bg_container = getContentPane();
@@ -79,7 +79,7 @@ class JTable_3 extends JFrame implements ActionListener{
 
     public JTable_3(List<System_m.Reader> mylists){
         super("借阅信息");
-        this.setBounds(600, 150, 500, 500);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setVisible(true);
         //this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.reader_lists=mylists;
