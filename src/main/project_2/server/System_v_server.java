@@ -21,11 +21,16 @@ import java.awt.event.ActionListener;
  * <p>Copyright: Copyright (c) 2019</p>
  */
 public class System_v_server {
+    private static View view;
+    private System_m_server system_m_server;
+
     public System_v_server(){
-        new view();
+        view=new View();
+        system_m_server=new System_m_server();
+        system_m_server.serverStart(view);
     }
 
-    class view extends JFrame implements ActionListener{
+    class View extends JFrame implements ActionListener{
         //
         private JScrollPane west;
         private DefaultListModel defaultListModel;
@@ -40,7 +45,8 @@ public class System_v_server {
         //
         private JPanel north;
         //
-        public view(){
+
+        public View(){
             super("在线聊天");
             int screen_width = Toolkit.getDefaultToolkit().getScreenSize().width;
             int screen_height = Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -63,10 +69,9 @@ public class System_v_server {
 
             //east
             east_area=new JTextArea();
-            east_area.append("123");
-            east_area.append("456");
             east_area.setEnabled(false);
             east=new JScrollPane(east_area);
+            east.setBorder(new TitledBorder("聊天记录"));
 
             JSplitPane jSplitPane= new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, west, east);
             jSplitPane.setDividerLocation(5);
@@ -86,18 +91,25 @@ public class System_v_server {
             this.add(east,BorderLayout.CENTER);
             this.add(south,BorderLayout.SOUTH);
             this.setVisible(true);
+
+
         }
+
+
 
         @Override
         public void actionPerformed(ActionEvent e) {
 
         }
 
-        public static void func(User user){
-            listModel.addElement(client.getUser().getName());// 更新在线列表
-            contentArea.append(client.getUser().getName()
-                    + client.getUser().getIp() + "上线!\r\n");
+        //修改在线人数
+        public void func_1(String str){
+            defaultListModel.addElement(str);
+        }
 
+        //修改聊天记录
+        public void func_2(String str){
+            east_area.append(str);
         }
     }
 }
