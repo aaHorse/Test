@@ -29,14 +29,15 @@ public class Return extends JFrame implements ActionListener {
 
     public Return() {
         super("读者借阅信息");
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setVisible(true);
-        //this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        bg_container = getContentPane();
-        bg_container.setLayout(new FlowLayout(FlowLayout.CENTER));
+        int screen_width = Toolkit.getDefaultToolkit().getScreenSize().width;
+        int screen_height = Toolkit.getDefaultToolkit().getScreenSize().height;
+        this.setSize(screen_width/2,screen_height/2);
+        this.setLocation((screen_width - this.getWidth()) / 2,
+                (screen_height - this.getHeight()) / 2);
+        this.setBackground(Color.LIGHT_GRAY);
         Container container = new Container();
         container.setLayout(new FlowLayout(FlowLayout.CENTER));
-        JTextField jTextField = new JTextField("学号 :");
+        JTextField jTextField = new JTextField("学号");
         jTextField_2 = new JTextField(10);
         jTextField.setEnabled(false);
         jTextField_2.setEnabled(true);
@@ -45,8 +46,19 @@ public class Return extends JFrame implements ActionListener {
         JButton jButton = new JButton("确定");
         jButton.addActionListener(this);
         container.add(jButton);
-        bg_container.add(container);
 
+
+        GridBagLayout gridBagLayout=new GridBagLayout();
+        this.setLayout(gridBagLayout);
+        GridBagConstraints gridBagConstraints=new GridBagConstraints();
+        gridBagConstraints.gridx=1;
+        gridBagConstraints.gridy=1;
+        gridBagConstraints.gridwidth=1;
+        gridBagConstraints.gridheight=1;
+        gridBagConstraints.fill=GridBagConstraints.BOTH;
+        gridBagLayout.setConstraints(container,gridBagConstraints);
+        this.add(container);
+        this.setVisible(true);
     }
 
     @Override

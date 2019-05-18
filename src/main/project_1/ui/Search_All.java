@@ -26,19 +26,19 @@ import java.util.List;
  * <p>Copyright: Copyright (c) 2019</p>
  */
 public class Search_All extends JFrame implements ActionListener {
-    private static Container bg_container;
     private static JTextField jTextField_2;
 
     public Search_All() {
         super("读者借阅信息");
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setVisible(true);
-        //this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        bg_container = getContentPane();
-        bg_container.setLayout(new FlowLayout(FlowLayout.CENTER));
+        int screen_width = Toolkit.getDefaultToolkit().getScreenSize().width;
+        int screen_height = Toolkit.getDefaultToolkit().getScreenSize().height;
+        this.setSize(screen_width/2,screen_height/2);
+        this.setLocation((screen_width - this.getWidth()) / 2,
+                (screen_height - this.getHeight()) / 2);
+        this.setBackground(Color.LIGHT_GRAY);
         Container container = new Container();
         container.setLayout(new FlowLayout(FlowLayout.CENTER));
-        JTextField jTextField = new JTextField("学号 :");
+        JTextField jTextField = new JTextField("学号");
         jTextField_2 = new JTextField(10);
         jTextField.setEnabled(false);
         jTextField_2.setEnabled(true);
@@ -47,8 +47,18 @@ public class Search_All extends JFrame implements ActionListener {
         JButton jButton = new JButton("确定");
         jButton.addActionListener(this);
         container.add(jButton);
-        bg_container.add(container);
 
+        GridBagLayout gridBagLayout=new GridBagLayout();
+        this.setLayout(gridBagLayout);
+        GridBagConstraints gridBagConstraints=new GridBagConstraints();
+        gridBagConstraints.gridx=1;
+        gridBagConstraints.gridy=1;
+        gridBagConstraints.gridwidth=1;
+        gridBagConstraints.gridheight=1;
+        gridBagConstraints.fill=GridBagConstraints.BOTH;
+        gridBagLayout.setConstraints(container,gridBagConstraints);
+        this.add(container);
+        this.setVisible(true);
     }
 
     @Override
@@ -68,7 +78,6 @@ public class Search_All extends JFrame implements ActionListener {
  * 借阅信息显示的表格
  * */
 class JTable_2 extends JFrame{
-    private static Container container;
     private static javax.swing.JTable table;
     private static List<System_m.Reader> reader_lists;
     /*
@@ -78,31 +87,24 @@ class JTable_2 extends JFrame{
 
     public JTable_2(List<System_m.Reader> mylists){
         super("借阅信息");
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setVisible(true);
+        int screen_width = Toolkit.getDefaultToolkit().getScreenSize().width;
+        int screen_height = Toolkit.getDefaultToolkit().getScreenSize().height;
+        this.setSize(screen_width/2,screen_height/2);
+        this.setLocation((screen_width - this.getWidth()) / 2,
+                (screen_height - this.getHeight()) / 2);
+        this.setBackground(Color.LIGHT_GRAY);
         this.reader_lists=mylists;
-        System.out.println("长度为"+lists.size());
-        intiComponent();
-    }
-
-
-    public void intiComponent() {
-        container=getContentPane();
-        container.setLayout(new FlowLayout(FlowLayout.LEFT));
         table= new javax.swing.JTable(new MyTableModel());
         JScrollPane scroll = new JScrollPane(table);
-
         this.add(scroll);
         this.setVisible(true);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.pack();
     }
 
 
     private class MyTableModel extends AbstractTableModel {
         //(num,name,xueyuan,major,grade,date,book_name,book_author,publishing_name)
         String[] columnNames =
-                {"学号","姓名","学院","专业","年级","借书时间","书名","作者","出版社"};
+                {"学号","姓名","学院","专业","年级","借　书　时　间","书名","作者","出版社"};
         int length=reader_lists.size();
         Object[][] data = new Object[length][9];
         public MyTableModel() {

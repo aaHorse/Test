@@ -26,13 +26,18 @@ import java.awt.event.ActionListener;
 public class System_v extends JFrame implements ActionListener {
     public System_v(){
         super("图书馆系统");
+        int screen_width = Toolkit.getDefaultToolkit().getScreenSize().width;
+        int screen_height = Toolkit.getDefaultToolkit().getScreenSize().height;
+        this.setSize(screen_width/2,screen_height/2);
+        this.setLocation((screen_width - this.getWidth()) / 2,
+                (screen_height - this.getHeight()) / 2);
         this.setBackground(Color.LIGHT_GRAY);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setVisible(true);
-        this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+
+
         JPanel jPanel=new JPanel();
+        jPanel.setLayout(new GridLayout(3,1));
         JButton jButton_1=new JButton("借书");
         JButton jButton_2=new JButton("还书");
         JButton jButton_3=new JButton("查看所有图书馆借出去的书");
@@ -43,9 +48,18 @@ public class System_v extends JFrame implements ActionListener {
         jButton_2.addActionListener(this);
         jButton_3.addActionListener(this);
 
-        jButton_1.setLocation(200,200);
-        jPanel.setLocation(500,500);
-        this.setContentPane(jPanel);
+
+        GridBagLayout gridBagLayout=new GridBagLayout();
+        this.setLayout(gridBagLayout);
+        GridBagConstraints gridBagConstraints=new GridBagConstraints();
+        gridBagConstraints.gridx=1;
+        gridBagConstraints.gridy=1;
+        gridBagConstraints.gridwidth=1;
+        gridBagConstraints.gridheight=1;
+        gridBagConstraints.fill=GridBagConstraints.BOTH;
+        gridBagLayout.setConstraints(jPanel,gridBagConstraints);
+        this.add(jPanel);
+        this.setVisible(true);
     }
 
 

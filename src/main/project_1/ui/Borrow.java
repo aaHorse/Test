@@ -53,16 +53,17 @@ class JF_Reader extends JFrame implements ActionListener{
 
     public JF_Reader(){
         super("读者信息");
-        this.setVisible(true);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        //this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        Container bg_container=getContentPane();
-        bg_container.setLayout(new FlowLayout(FlowLayout.CENTER));
+        int screen_width = Toolkit.getDefaultToolkit().getScreenSize().width;
+        int screen_height = Toolkit.getDefaultToolkit().getScreenSize().height;
+        this.setSize(screen_width/2,screen_height/2);
+        this.setLocation((screen_width - this.getWidth()) / 2,
+                (screen_height - this.getHeight()) / 2);
+        this.setBackground(Color.LIGHT_GRAY);
+
 
         container=new Container();
         container.setLayout(new BoxLayout(container,BoxLayout.Y_AXIS));
 
-        bg_container.add(container);
 
         JTextField [] num={new JTextField("姓名", 10), jTextField_1,
                 new JTextField("学号", 10), jTextField_2,
@@ -85,15 +86,27 @@ class JF_Reader extends JFrame implements ActionListener{
             container.add(container_2);
         }
 
-        JButton jButton=new JButton("确定");
+        JButton jButton=new JButton("　　　　确　　　　定　　　　");
         container.add(jButton);
         jButton.addActionListener(this);
+
+        GridBagLayout gridBagLayout=new GridBagLayout();
+        this.setLayout(gridBagLayout);
+        GridBagConstraints gridBagConstraints=new GridBagConstraints();
+        gridBagConstraints.gridx=1;
+        gridBagConstraints.gridy=1;
+        gridBagConstraints.gridwidth=1;
+        gridBagConstraints.gridheight=1;
+        gridBagConstraints.fill=GridBagConstraints.BOTH;
+        gridBagLayout.setConstraints(container,gridBagConstraints);
+        this.add(container);
+        this.setVisible(true);
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals("确定")){
+        if(e.getActionCommand().equals("　　　　确　　　　定　　　　")){
             Borrow.reader.setNum(jTextField_2.getText());
             Borrow.reader.setName(jTextField_1.getText());
             Borrow.reader.setXueyuan(jTextField_3.getText());

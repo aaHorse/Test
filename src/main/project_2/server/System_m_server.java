@@ -2,16 +2,13 @@ package main.project_2.server;
 
 import main.project_2.User;
 
-import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 /**
  * java类简单作用描述
