@@ -2,17 +2,14 @@ package main.project_2.client;
 
 import main.project_2.User;
 
-import javax.swing.*;
-import java.awt.*;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 /**
  * java类简单作用描述
@@ -100,7 +97,7 @@ public class System_m_client {
                         case 0:
                             //0:成功连接服务器
                             view.func_1(num[1]);
-                            view.func_2(num[3]);
+                            view.func_2("系统信息",num[3]);
                             break;
                         case 1:
                             //1：给客户端反馈目前的在线人员信息
@@ -108,7 +105,7 @@ public class System_m_client {
                             break;
                         case 2:
                             //2:给所有客户端发送新用户的上线信息
-                            view.func_2(num[1]+"上线啦");
+                            view.func_2("系统信息",num[1]+"上线啦");
                             break;
                         case 3:
                             //3:服务器转发单人发送的信息
@@ -116,7 +113,7 @@ public class System_m_client {
                             //4：服务器转发群发的信息
                         case 5:
                             //5:服务器进行群发信息
-                            view.func_2(num[1]+":"+num[3]);
+                            view.func_2(num[1],num[3]);
                         default:
                     }
                 } catch (IOException e) {

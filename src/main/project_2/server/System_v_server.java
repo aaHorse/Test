@@ -1,12 +1,13 @@
 package main.project_2.server;
 
-import main.project_2.User;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * java类简单作用描述
@@ -56,10 +57,11 @@ public class System_v_server {
 
             //north
             north=new JPanel();
-            JTextArea jTextArea_1=new JTextArea("服务器端");
+            north.setLayout(new BorderLayout());
+            JTextArea jTextArea_1=new JTextArea("               服务器端");
             jTextArea_1.setEnabled(false);
             jTextArea_1.setFont(new Font("宋体", Font.PLAIN, 50));
-            north.add(jTextArea_1);
+            north.add(jTextArea_1,BorderLayout.CENTER);
 
             //west
             defaultListModel=new DefaultListModel();
@@ -81,6 +83,7 @@ public class System_v_server {
             south.setBorder(new TitledBorder("发信息"));
             south_area=new JTextField();
             south_bt=new JButton("发送");
+            south_bt.addActionListener(this);
             south.add(south_area,BorderLayout.CENTER);
             south.add(south_bt,BorderLayout.EAST);
 
@@ -95,21 +98,41 @@ public class System_v_server {
 
         }
 
-
-
         @Override
         public void actionPerformed(ActionEvent e) {
+            String str=e.getActionCommand();
+            switch (str){
+                case "发送":
+                    String message=south_area.getText().trim();
+                    if(system_m_server.send(message)){
+                        func_2("服务器",message);
+                        south_area.setText("");
+                    }else{
+                        show_error("信息无法发送");
+                    }
+
+                    break;
+            }
 
         }
 
         //修改在线人数
         public void func_1(String str){
-            defaultListModel.addElement(str);
+            defaultListModel.addElement(str+"      \n");
         }
 
         //修改聊天记录
-        public void func_2(String str){
-            east_area.append(str);
+        public void func_2(String name,String content){
+            Date now=new Date();
+            SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            String time=ft.format(now);
+            east_area.append(name+"   "+time+"\n"+content+"\n");
+        }
+
+        //错误警告
+        private void show_error(String str){
+            JOptionPane.showMessageDialog(this, str, "错误",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 }

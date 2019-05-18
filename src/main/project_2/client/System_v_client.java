@@ -5,11 +5,16 @@ import main.project_2.User;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Enumeration;
+
 
 /**
  * java类简单作用描述
@@ -25,7 +30,23 @@ import java.net.UnknownHostException;
  */
 public class System_v_client{
     public static void main(String[]args){
+        InitGlobalFont(new Font("alias", Font.PLAIN,20));
         view=new View();
+    }
+
+    /**
+     * 统一设置字体，父界面设置之后，所有由父界面进入的子界面都不需要再次设置字体
+     */
+    private static void InitGlobalFont(Font font) {
+        FontUIResource fontRes = new FontUIResource(font);
+        for (Enumeration<Object> keys = UIManager.getDefaults().keys();
+             keys.hasMoreElements(); ) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get(key);
+            if (value instanceof FontUIResource) {
+                UIManager.put(key, fontRes);
+            }
+        }
     }
 
     private static View view;
@@ -92,8 +113,6 @@ public class System_v_client{
 
             //east
             east_area=new JTextArea();
-            east_area.append("123");
-            east_area.append("456");
             east_area.setEnabled(false);
             east=new JScrollPane(east_area);
             east.setBorder(new TitledBorder("聊天记录"));
@@ -127,6 +146,7 @@ public class System_v_client{
                     String message=south_area.getText().trim();
                     if(isConnected){
                         system_m_client.send(message);
+                        south_area.setText("");
                     }else{
                         show_error("服务器尚未连接");
                     }
@@ -160,13 +180,16 @@ public class System_v_client{
          * 修改在线人数
          * */
         public void func_1(String str){
-            defaultListModel.addElement(str);
+            defaultListModel.addElement(str+"       \n");
         }
         /*
          * 修改聊天内容
          * */
-        public void func_2(String str){
-            east_area.append(str);
+        public void func_2(String name,String content){
+            Date now=new Date();
+            SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            String time=ft.format(now);
+            east_area.append(name+"   "+time+"\n"+content+"\n");
         }
 
         private void show_error(String str){

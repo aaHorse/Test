@@ -39,19 +39,19 @@ public class System_m_server {
             serverSocket = new ServerSocket(1234);
             serverThread = new ServerThread(serverSocket, 23);
             serverThread.start();
-            view.func_2("服务器成功启动\n");
+            view.func_2("系统信息","服务器成功启动");
         }catch (Exception e1) {
             e1.printStackTrace();
         }
     }
 
-    // 执行消息发送
+    // 执行消息发送 服务器给客户端群发信息
     public boolean send(String message) {
         if (clients.size() == 0) {
             return false;
         }
         for (int i = clients.size() - 1; i >= 0; i--) {
-            clients.get(i).getWriter().println(pack(5,"服务器name","服务器ip",message));
+            clients.get(i).getWriter().println(pack(5,"服务器","服务器",message));
             clients.get(i).getWriter().flush();
         }
         return true;
@@ -115,10 +115,11 @@ public class System_m_server {
                 user = new User();
                 user.setName(num[1]);
                 user.setIp(num[2]);
-
                 // 反馈连接成功信息
                 writer.println(pack(0,user.getName(),user.getIp(),"成功连接服务器"));
                 writer.flush();
+                view.func_1(user.getName());
+                view.func_2("系统信息",user.getName()+"成功连接服务器");
                 // 反馈当前在线用户信息
                 if (clients.size() > 0) {
                     String temp = "";
@@ -152,6 +153,7 @@ public class System_m_server {
                     /*
                     * 还没区分单人发送还是群发的 3,4
                     * */
+                    view.func_2(num[1],num[3]);
                     for (int i = clients.size() - 1; i >= 0; i--) {
                         clients.get(i).getWriter().println(pack(4,num[1],num[2],num[3]));
                         clients.get(i).getWriter().flush();
@@ -165,13 +167,15 @@ public class System_m_server {
 
 
     /*
-    *  0:成功连接服务器
-    *  1：给客户端反馈目前的在线人员信息
-    *  2:给所有客户端发送新用户的上线信息
-    *  3:服务器转发单人发送的信息
-    *  4：服务器转发群发的信息
-    *  5:服务器进行群发信息
-    *  6:客户端给服务器发信息
+    *  0:成功连接服务器  ，服务器to客户端
+    *  1：给客户端反馈目前的在线人员信息  ，服务器to客户端
+    *  2:给所有客户端发送新用户的上线信息 ， 服务器to客户端
+    *  3:服务器转发单人发送的信息 ， 服务器to客户端
+    *  4：服务器转发群发的信息 ， 服务器to客户端
+    *  5:服务器进行群发信息 ， 服务器to客户端
+    *
+    *  6:客户端给服务器发信息 ， 客户端to服务器
+    *  7:客户端给服务器发送连接的基本信息 , 客户端to服务器
     * */
     private String pack(int code,String name,String ip,String content){
         return code+"%"+name+"%"+ip+"%"+content;
