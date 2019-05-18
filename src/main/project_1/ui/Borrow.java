@@ -18,6 +18,7 @@ import main.project_1.System_p;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,7 +36,6 @@ public class Borrow {
     * */
     public static System_m.Reader reader=new System_m.Reader();
     public Borrow() {
-        //JTable jTable=new JTable();
         JF_Reader jf_reader=new JF_Reader();
     }
 }
@@ -59,24 +59,18 @@ class JF_Reader extends JFrame implements ActionListener{
         this.setLocation((screen_width - this.getWidth()) / 2,
                 (screen_height - this.getHeight()) / 2);
         this.setBackground(Color.LIGHT_GRAY);
-
-
         container=new Container();
         container.setLayout(new BoxLayout(container,BoxLayout.Y_AXIS));
-
-
         JTextField [] num={new JTextField("姓名", 10), jTextField_1,
                 new JTextField("学号", 10), jTextField_2,
                 new JTextField("学院", 10),jTextField_3,
                 new JTextField("专业", 10), jTextField_4,
                 new JTextField("年级", 10), jTextField_5};
-
         for(int i=0;i<10;i++){
             if(i%2==0){
                 num[i].setEnabled(false);
             }
         }
-
         for(int i=0;i<10;i++){
             Container container_2=new Container();
             container_2.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -85,11 +79,9 @@ class JF_Reader extends JFrame implements ActionListener{
             container_2.add(num[i]);
             container.add(container_2);
         }
-
         JButton jButton=new JButton("　　　　确　　　　定　　　　");
         container.add(jButton);
         jButton.addActionListener(this);
-
         GridBagLayout gridBagLayout=new GridBagLayout();
         this.setLayout(gridBagLayout);
         GridBagConstraints gridBagConstraints=new GridBagConstraints();
@@ -101,7 +93,6 @@ class JF_Reader extends JFrame implements ActionListener{
         gridBagLayout.setConstraints(container,gridBagConstraints);
         this.add(container);
         this.setVisible(true);
-
     }
 
     @Override
@@ -115,7 +106,7 @@ class JF_Reader extends JFrame implements ActionListener{
             /*
             * 跳转到借书的表格显示
             * */
-            new JTable();
+            new JTable_1(new MyTableModel());
         }
     }
 }
@@ -124,7 +115,7 @@ class JF_Reader extends JFrame implements ActionListener{
 /*
  * 借书时显示的表格
  * */
-class JTable extends JFrame implements ActionListener{
+class JTable_1 extends JFrame implements ActionListener{
     private static Container container;
     private static javax.swing.JTable table;
     /*
@@ -132,12 +123,26 @@ class JTable extends JFrame implements ActionListener{
     * */
     public static List<System_m.Reader> lists=new ArrayList<>();
 
-    public JTable(){
+    public JTable_1(MyTableModel myTableModel){
         super("借书");
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        container=getContentPane();
+        container.setLayout(new BoxLayout(container,BoxLayout.X_AXIS));
+        JButton jButton=new JButton("确定");
+        jButton.addActionListener(this);
+        container.add(jButton);
+        table= new javax.swing.JTable(new MyTableModel());
+        table.setRowHeight(50);
+        for(int i=0;i<myTableModel.getColumnCount();i++){
+            table.getColumnModel().getColumn(i).setPreferredWidth(460);
+        }
+        DefaultTableCellRenderer r =new DefaultTableCellRenderer();
+        r.setHorizontalAlignment(JLabel.CENTER);
+        table.setDefaultRenderer(Object.class,r);
+        table.setFont(new Font("宋体",Font.BOLD, 16));
+        JScrollPane scroll = new JScrollPane(table);
+        container.add(scroll);
         this.setVisible(true);
-        //this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        intiComponent();
     }
 
     @Override
@@ -179,99 +184,81 @@ class JTable extends JFrame implements ActionListener{
         String str=sdfd.format(now);
         return str;
     }
+}
 
-    public void intiComponent() {
-        container=getContentPane();
-        container.setLayout(new BoxLayout(container,BoxLayout.X_AXIS));
-        add_button();
-        table= new javax.swing.JTable(new MyTableModel());
-        JScrollPane scroll = new JScrollPane(table);
-        container.add(scroll);
+class MyTableModel extends AbstractTableModel {
+    String[] columnNames =
+            {"书名", "作者", "出版社", "我要借阅"};
+    Object[][] data = new Object[100][4];
+    public MyTableModel() {
+        for (int i = 0; i < 100; i++) {
+            data[i][0]="书"+i;
+            data[i][1]="作者"+i;
+            data[i][2]="出版社"+i;
+            data[i][3]=new Boolean(false);
+        }
     }
 
-    private void add_button(){
-        Container container_2=new Container();
-        container_2.setLayout(new FlowLayout(FlowLayout.CENTER));
-        JButton jButton=new JButton("确定");
-        jButton.addActionListener(this);
-        container_2.add(jButton);
-        container.add(container_2);
+
+    /**
+     * 得到列名
+     */
+    @Override
+    public String getColumnName(int column) {
+        return columnNames[column];
     }
 
-    private class MyTableModel extends AbstractTableModel {
-        String[] columnNames =
-                {"书名", "作者", "出版社", "我要借阅"};
-        Object[][] data = new Object[100][4];
-        public MyTableModel() {
-            for (int i = 0; i < 100; i++) {
-                data[i][0]="书"+i;
-                data[i][1]="作者"+i;
-                data[i][2]="出版社"+i;
-                data[i][3]=new Boolean(false);
-            }
-        }
-
-
-        /**
-         * 得到列名
-         */
-        @Override
-        public String getColumnName(int column) {
-            return columnNames[column];
-        }
-
-        /**
-         * 重写方法，得到表格列数
-         */
-        @Override
-        public int getColumnCount() {
-            return columnNames.length;
-        }
-
-        /**
-         * 得到表格行数
-         */
-        @Override
-        public int getRowCount() {
-            return data.length;
-        }
-
-        /**
-         * 得到数据所对应对象
-         */
-        @Override
-        public Object getValueAt(int rowIndex, int columnIndex) {
-            return data[rowIndex][columnIndex];
-        }
-
-        /**
-         * 得到指定列的数据类型
-         */
-        @Override
-        public Class<?> getColumnClass(int columnIndex) {
-            return data[0][columnIndex].getClass();
-        }
-
-        /**
-         * 指定设置数据单元是否可编辑.这里设置"姓名","学号"不可编辑
-         */
-        @Override
-        public boolean isCellEditable(int rowIndex, int columnIndex) {
-            if (columnIndex < 3)
-                return false;
-            else
-                return true;
-        }
-
-        /**
-         * 如果数据单元为可编辑，则将编辑后的值替换原来的值
-         */
-        @Override
-        public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-            data[rowIndex][columnIndex] = aValue;
-            /*通知监听器数据单元数据已经改变*/
-            fireTableCellUpdated(rowIndex, columnIndex);
-        }
-
+    /**
+     * 重写方法，得到表格列数
+     */
+    @Override
+    public int getColumnCount() {
+        return columnNames.length;
     }
+
+    /**
+     * 得到表格行数
+     */
+    @Override
+    public int getRowCount() {
+        return data.length;
+    }
+
+    /**
+     * 得到数据所对应对象
+     */
+    @Override
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        return data[rowIndex][columnIndex];
+    }
+
+    /**
+     * 得到指定列的数据类型
+     */
+    @Override
+    public Class<?> getColumnClass(int columnIndex) {
+        return data[0][columnIndex].getClass();
+    }
+
+    /**
+     * 指定设置数据单元是否可编辑.这里设置"姓名","学号"不可编辑
+     */
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        if (columnIndex < 3)
+            return false;
+        else
+            return true;
+    }
+
+    /**
+     * 如果数据单元为可编辑，则将编辑后的值替换原来的值
+     */
+    @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        data[rowIndex][columnIndex] = aValue;
+        /*通知监听器数据单元数据已经改变*/
+        fireTableCellUpdated(rowIndex, columnIndex);
+    }
+
 }

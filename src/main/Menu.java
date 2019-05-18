@@ -34,33 +34,25 @@ public class Menu extends JFrame implements ActionListener {
         super("上机作业");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
         container=getContentPane();
         container.setLayout(new FlowLayout(FlowLayout.CENTER));
         container.setBackground(Color.LIGHT_GRAY);
-
-        //创建菜单
         JMenuBar jmb = new JMenuBar();
-        //不能设定位置，会自动放在最上部
         this.setJMenuBar(jmb);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        //添加菜单
         JMenu menu1 = new JMenu("项目");
         JMenu menu2 = new JMenu("关于");
         JMenuItem item1 = new JMenuItem("图书馆");
         JMenuItem item2 = new JMenuItem("在线聊天");
         JMenuItem item3 = new JMenuItem("关于开发者");
-        //添加菜单项至菜单上
         menu1.add(item1);
         menu1.add(item2);
         menu2.add(item3);
-        //将菜单加入至菜单条
         jmb.add(menu1);
         jmb.add(menu2);
         item1.addActionListener(this);
         item2.addActionListener(this);
         item3.addActionListener(this);
-
         JTextArea textArea=new JTextArea();
         textArea.setText("\n\n\n欢  迎  使  用  !");
         textArea.setBackground(Color.LIGHT_GRAY);
@@ -68,7 +60,6 @@ public class Menu extends JFrame implements ActionListener {
         textArea.setDisabledTextColor(Color.RED);
         textArea.setFont(new Font("宋体", Font.PLAIN, 50));
         container.add(textArea);
-
         this.setVisible(true);
     }
 

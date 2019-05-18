@@ -34,8 +34,6 @@ public class System_v extends JFrame implements ActionListener {
         this.setBackground(Color.LIGHT_GRAY);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
-
         JPanel jPanel=new JPanel();
         jPanel.setLayout(new GridLayout(3,1));
         JButton jButton_1=new JButton("借书");
@@ -47,7 +45,6 @@ public class System_v extends JFrame implements ActionListener {
         jButton_1.addActionListener(this);
         jButton_2.addActionListener(this);
         jButton_3.addActionListener(this);
-
 
         GridBagLayout gridBagLayout=new GridBagLayout();
         this.setLayout(gridBagLayout);

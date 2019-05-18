@@ -5,6 +5,7 @@ import main.project_1.System_p;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,8 +47,6 @@ public class Return extends JFrame implements ActionListener {
         JButton jButton = new JButton("确定");
         jButton.addActionListener(this);
         container.add(jButton);
-
-
         GridBagLayout gridBagLayout=new GridBagLayout();
         this.setLayout(gridBagLayout);
         GridBagConstraints gridBagConstraints=new GridBagConstraints();
@@ -84,6 +83,7 @@ class JTable_3 extends JFrame implements ActionListener{
     private static Container container;
     private static javax.swing.JTable table;
     private static java.util.List<System_m.Reader> reader_lists;
+    private MyTableModel myTableModel;
     /*
      * 全局的借阅信息
      * */
@@ -92,22 +92,27 @@ class JTable_3 extends JFrame implements ActionListener{
     public JTable_3(List<System_m.Reader> mylists){
         super("借阅信息");
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setVisible(true);
-        //this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.reader_lists=mylists;
-        intiComponent();
-    }
 
-
-    public void intiComponent() {
         container=getContentPane();
         container.setLayout(new BoxLayout(container,BoxLayout.X_AXIS));
         JButton jButton=new JButton("确定");
         jButton.addActionListener(this);
         container.add(jButton);
-        table= new javax.swing.JTable(new MyTableModel());
+        myTableModel=new MyTableModel();
+        table= new javax.swing.JTable(myTableModel);
+        table.setRowHeight(50);
+        for(int i=0;i<myTableModel.getColumnCount();i++){
+            table.getColumnModel().getColumn(i).setPreferredWidth(460);
+        }
+        table.getColumnModel().getColumn(5).setPreferredWidth(800);
+        DefaultTableCellRenderer r =new DefaultTableCellRenderer();
+        r.setHorizontalAlignment(JLabel.CENTER);
+        table.setDefaultRenderer(Object.class,r);
+        table.setFont(new Font("宋体",Font.BOLD, 16));
         JScrollPane scroll = new JScrollPane(table);
         container.add(scroll);
+        this.setVisible(true);
     }
 
     @Override

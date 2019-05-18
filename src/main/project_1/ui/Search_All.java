@@ -5,12 +5,11 @@ import main.project_1.System_p;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,7 +46,6 @@ public class Search_All extends JFrame implements ActionListener {
         JButton jButton = new JButton("确定");
         jButton.addActionListener(this);
         container.add(jButton);
-
         GridBagLayout gridBagLayout=new GridBagLayout();
         this.setLayout(gridBagLayout);
         GridBagConstraints gridBagConstraints=new GridBagConstraints();
@@ -78,8 +76,9 @@ public class Search_All extends JFrame implements ActionListener {
  * 借阅信息显示的表格
  * */
 class JTable_2 extends JFrame{
-    private static javax.swing.JTable table;
+    private static JTable table;
     private static List<System_m.Reader> reader_lists;
+    private MyTableModel myTableModel;
     /*
      * 全局的借阅信息
      * */
@@ -87,14 +86,20 @@ class JTable_2 extends JFrame{
 
     public JTable_2(List<System_m.Reader> mylists){
         super("借阅信息");
-        int screen_width = Toolkit.getDefaultToolkit().getScreenSize().width;
-        int screen_height = Toolkit.getDefaultToolkit().getScreenSize().height;
-        this.setSize(screen_width/2,screen_height/2);
-        this.setLocation((screen_width - this.getWidth()) / 2,
-                (screen_height - this.getHeight()) / 2);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setBackground(Color.LIGHT_GRAY);
         this.reader_lists=mylists;
-        table= new javax.swing.JTable(new MyTableModel());
+        myTableModel=new MyTableModel();
+        table= new JTable(myTableModel);
+        table.setRowHeight(50);
+        for(int i=0;i<myTableModel.getColumnCount();i++){
+            table.getColumnModel().getColumn(i).setPreferredWidth(460);
+        }
+        table.getColumnModel().getColumn(5).setPreferredWidth(800);
+        DefaultTableCellRenderer r =new DefaultTableCellRenderer();
+        r.setHorizontalAlignment(JLabel.CENTER);
+        table.setDefaultRenderer(Object.class,   r);
+        table.setFont(new Font("宋体",Font.BOLD, 16));
         JScrollPane scroll = new JScrollPane(table);
         this.add(scroll);
         this.setVisible(true);
@@ -104,7 +109,7 @@ class JTable_2 extends JFrame{
     private class MyTableModel extends AbstractTableModel {
         //(num,name,xueyuan,major,grade,date,book_name,book_author,publishing_name)
         String[] columnNames =
-                {"学号","姓名","学院","专业","年级","借　书　时　间","书名","作者","出版社"};
+                {"学号","姓名","学院","专业","年级","借书时间","书名","作者","出版社"};
         int length=reader_lists.size();
         Object[][] data = new Object[length][9];
         public MyTableModel() {
