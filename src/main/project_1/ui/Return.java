@@ -105,7 +105,7 @@ class JTable_3 extends JFrame implements ActionListener{
         for(int i=0;i<myTableModel.getColumnCount();i++){
             table.getColumnModel().getColumn(i).setPreferredWidth(460);
         }
-        table.getColumnModel().getColumn(5).setPreferredWidth(800);
+        table.getColumnModel().getColumn(6).setPreferredWidth(800);
         DefaultTableCellRenderer r =new DefaultTableCellRenderer();
         r.setHorizontalAlignment(JLabel.CENTER);
         table.setDefaultRenderer(Object.class,r);
@@ -122,10 +122,12 @@ class JTable_3 extends JFrame implements ActionListener{
             for(int i=0;i<reader_lists.size();i++){
                 if(table.getValueAt(i,0).toString().equals("true")){
                     lists.add(reader_lists.get(i));
-                    System.out.println("选择了"+i);
                 }
             }
             if(lists.size()!=0){
+                /*
+                * 去修改数据库
+                * */
                 System_p.func_3(lists);
             }
         }

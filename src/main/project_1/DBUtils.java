@@ -186,6 +186,7 @@ public class DBUtils {
         try {
             conn = getConnection();
             String sql="delete from "+mytable_2+" where num = "+"\'"+reader.getNum()+"\'"
+                    +"and book_name = "+'\''+reader.getBook().getBook_name()+"\'"
                     +"and date = "+"\'"+reader.getDate()+"\'"+";";
             System.out.println(sql);
             pstmt = conn.prepareStatement(sql);
