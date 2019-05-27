@@ -13,16 +13,81 @@
   
   本系统的数据库位于服务器上面，所以这一个项目下载就可以运行，不受限制。
   
+  以下提供一些界面的截图
+  
+  
+  #########################################################################################
+  
+  
+  ![image](https://github.com/aaHorse/Test/blob/master/src/images/a.png)
+    
+  
+  #########################################################################################
+ 
+  
+  
+  ![image](https://github.com/aaHorse/Test/blob/master/src/images/c.png)
+    
+  
+  #########################################################################################
+  
+  
+  ![image](https://github.com/aaHorse/Test/blob/master/src/images/d.png)
+    
+  
+  #########################################################################################
+  
+  
+  ![image](https://github.com/aaHorse/Test/blob/master/src/images/e.png)
+    
+  
+  #########################################################################################
+  
+  
+  ![image](https://github.com/aaHorse/Test/blob/master/src/images/f.png)
+    
+  
+  #########################################################################################
+  
+  
+  ![image](https://github.com/aaHorse/Test/blob/master/src/images/g.png)
+  
+  
+   #########################################################################################
+   
+    
+  ![image](https://github.com/aaHorse/Test/blob/master/src/images/h.png)
+    
+ 
+  
   
 #############################################################
   
   在线聊天系统：
   
   本系统同样采用界面与逻辑分离的开发模式，
+ 
+    
+   #########################################################################################
   
   
-  ![image](https://github.com/aaHorse/Test/blob/master/src/images/a.png)
+  ![image](https://github.com/aaHorse/Test/blob/master/src/images/b.png)
   
+    
+  
+  #########################################################################################
+  
+  
+  ![image](https://github.com/aaHorse/Test/blob/master/src/images/i.png)
+    
+  
+  #########################################################################################
+  
+  
+  ![image](https://github.com/aaHorse/Test/blob/master/src/images/j.png)
+  
+  
+    
   
   
   
