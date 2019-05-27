@@ -1,7 +1,8 @@
-package main.project_2.client;
+package main.project_2.client_2;
 
 
 import main.project_2.User;
+import main.project_2.client.System_m_client;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -30,7 +31,7 @@ import java.util.Enumeration;
  * @Version: 1.0
  * <p>Copyright: Copyright (c) 2019</p>
  */
-public class System_v_client{
+public class System_v_client_2 {
     public static void main(String[]args){
         InitGlobalFont(new Font("alias", Font.PLAIN,20));
         view=new View();
@@ -69,7 +70,7 @@ public class System_v_client{
         private JPanel north;
         private JTextField jTextField_2;
         //
-        private System_m_client system_m_client;
+        private System_m_client_2 system_m_client;
         private boolean isConnected = false;
 
         public View(){
@@ -174,7 +175,7 @@ public class System_v_client{
                     } catch (UnknownHostException ex) {
                         ex.printStackTrace();
                     }
-                    system_m_client=new System_m_client();
+                    system_m_client=new System_m_client_2();
                     User user=new User();
                     user.setName(name);
                     user.setIp(ip);

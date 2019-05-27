@@ -61,11 +61,11 @@ class JF_Reader extends JFrame implements ActionListener{
         this.setBackground(Color.LIGHT_GRAY);
         container=new Container();
         container.setLayout(new BoxLayout(container,BoxLayout.Y_AXIS));
-        JTextField [] num={new JTextField("姓名", 10), jTextField_1,
-                new JTextField("学号", 10), jTextField_2,
-                new JTextField("学院", 10),jTextField_3,
-                new JTextField("专业", 10), jTextField_4,
-                new JTextField("年级", 10), jTextField_5};
+        JTextField [] num={new JTextField("姓名", 5), jTextField_1,
+                new JTextField("学号", 5), jTextField_2,
+                new JTextField("学院", 5),jTextField_3,
+                new JTextField("专业", 5), jTextField_4,
+                new JTextField("年级", 5), jTextField_5};
         for(int i=0;i<10;i++){
             if(i%2==0){
                 num[i].setEnabled(false);
@@ -79,7 +79,7 @@ class JF_Reader extends JFrame implements ActionListener{
             container_2.add(num[i]);
             container.add(container_2);
         }
-        JButton jButton=new JButton("　　　　确　　　　定　　　　");
+        JButton jButton=new JButton("　　　确　　定　　　");
         container.add(jButton);
         jButton.addActionListener(this);
         GridBagLayout gridBagLayout=new GridBagLayout();
@@ -97,7 +97,7 @@ class JF_Reader extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals("　　　　确　　　　定　　　　")){
+        if(e.getActionCommand().equals("　　　确　　定　　　")){
             Borrow.reader.setNum(jTextField_2.getText());
             Borrow.reader.setName(jTextField_1.getText());
             Borrow.reader.setXueyuan(jTextField_3.getText());

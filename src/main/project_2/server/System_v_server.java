@@ -6,6 +6,8 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -86,6 +88,7 @@ public class System_v_server {
             south_bt.addActionListener(this);
             south.add(south_area,BorderLayout.CENTER);
             south.add(south_bt,BorderLayout.EAST);
+            func();
 
             //合起來
             this.setLayout(new BorderLayout());
@@ -94,8 +97,18 @@ public class System_v_server {
             this.add(east,BorderLayout.CENTER);
             this.add(south,BorderLayout.SOUTH);
             this.setVisible(true);
+        }
 
-
+        private void func(){
+            south_area.addKeyListener(new KeyAdapter(){
+                public void keyPressed(KeyEvent e)
+                {
+                    if(e.getKeyChar()==KeyEvent.VK_ENTER )   //按回车键执行相应操作;
+                    {
+                        south_bt.doClick();
+                    }
+                }
+            });
         }
 
         @Override

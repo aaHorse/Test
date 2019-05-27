@@ -75,6 +75,7 @@ public class Menu extends JFrame implements ActionListener {
             new System_v_server();
         }
         else if("关于开发者".equals(str)){
+            //
         }
     }
 

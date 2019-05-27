@@ -28,7 +28,6 @@ public class System_m_server {
     private ArrayList<ClientThread> clients;
     private System_v_server.View view;
 
-    // 启动服务器
     public void serverStart(System_v_server.View view){
         try {
             this.view=view;
@@ -42,7 +41,6 @@ public class System_m_server {
         }
     }
 
-    // 执行消息发送 服务器给客户端群发信息
     public boolean send(String message) {
         if (clients.size() == 0) {
             return false;
@@ -55,21 +53,18 @@ public class System_m_server {
     }
 
 
-    // 服务器线程
     class ServerThread extends Thread {
         private ServerSocket serverSocket;
-
-        // 服务器线程的构造方法
         public ServerThread(ServerSocket serverSocket, int max) {
             this.serverSocket = serverSocket;
         }
 
         public void run() {
-            while (true) {// 不停的等待客户端的链接
+            while (true) {
                 try {
                     Socket socket = serverSocket.accept();
                     ClientThread client = new ClientThread(socket);
-                    client.start();// 开启对此客户端服务的线程
+                    client.start();
                     clients.add(client);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -80,7 +75,6 @@ public class System_m_server {
 
 
 
-    // 为一个客户端服务的线程
     class ClientThread extends Thread {
         private Socket socket;
         private BufferedReader reader;
@@ -99,25 +93,21 @@ public class System_m_server {
             return user;
         }
 
-        // 客户端线程的构造方法
         public ClientThread(Socket socket) {
             try {
                 this.socket = socket;
                 reader = new BufferedReader(new InputStreamReader(socket
                         .getInputStream()));
                 writer = new PrintWriter(socket.getOutputStream());
-                // 接收客户端的基本用户信息
                 String inf = reader.readLine();
                 String [] num=inf.split("%");
                 user = new User();
                 user.setName(num[1]);
                 user.setIp(num[2]);
-                // 反馈连接成功信息
                 writer.println(pack(0,user.getName(),user.getIp(),"成功连接服务器"));
                 writer.flush();
                 view.func_1(user.getName());
                 view.func_2("系统信息",user.getName()+"成功连接服务器");
-                // 反馈当前在线用户信息
                 if (clients.size() > 0) {
                     String temp = "";
                     for (int i = clients.size() - 1; i >0; i--) {
@@ -130,7 +120,6 @@ public class System_m_server {
                     writer.println(temp);
                     writer.flush();
                 }
-                // 向所有在线用户发送该用户上线命令
                 for (int i = clients.size() - 1; i >= 0; i--) {
                     clients.get(i).getWriter().println(pack(2,clients.get(i).getUser().getName(),clients.get(i).getUser().getIp(),",上线"));
                     clients.get(i).getWriter().flush();
@@ -140,13 +129,12 @@ public class System_m_server {
             }
         }
 
-        public void run() {// 不断接收客户端的消息，进行处理。
+        public void run() {
             String message = null;
             while (true) {
                 try {
-                    message = reader.readLine();// 接收客户端消息
+                    message = reader.readLine();
                     String num[]=message.split("%");
-                    //将客户说的信息在服务器端展示出来
                     /*
                     * 还没区分单人发送还是群发的 3,4
                     * */
