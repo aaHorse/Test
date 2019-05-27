@@ -20,9 +20,8 @@
   
   本系统同样采用界面与逻辑分离的开发模式，
   
-  src/images/a.png
   
-  ![image](https://github.com/aaHorse/Test/src/images/a.png)
+  ![image](https://github.com/aaHorse/Test/blob/master/src/images/a.png)
   
   
   
